@@ -1,0 +1,126 @@
+<div class="row" style="margin-top: -30px">
+    <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+      <div class="row">
+        <div class="col-lg-4 col-md-8 mx-auto">
+          <!-- form card login -->
+          <div class="card rounded shadow shadow-sm">
+            <div class="card-header">
+              <h3 class="mb-0">Register</h3>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="registerForm">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="name"
+                    class="form-control"
+                    formControlName="name"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.controls['name'].errors &&
+                      registerForm.controls['name'].touched
+                    "
+                    >Field Required</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="city"
+                    class="form-control"
+                    formControlName="city"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.controls['city'].errors &&
+                      registerForm.controls['city'].touched
+                    "
+                    >Field Required</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.controls['email'].errors &&
+                      registerForm.controls['email'].touched
+                    "
+                    >Enter Valid Email Id</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="phone"
+                    class="form-control"
+                    formControlName="phone"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.controls['phone'].errors &&
+                      registerForm.controls['phone'].touched
+                    "
+                    >Enter Valid Phone number</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="password"
+                    class="form-control"
+                    formControlName="password"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      registerForm.controls['password'].errors &&
+                      registerForm.controls['password'].touched"
+                    >Enter Valid Password.</span
+                  >
+                </div>
+                <br />
+                <button
+                  class="btn btn-primary"
+                  [disabled]="!registerForm.valid"
+                  (click)="register()"
+                >
+                  Register</button
+                ><br />
+                <span class="text-success" *ngIf="successMsg != null"
+                  >User Registered Successfully. Please Login.</span
+                >
+                <span class="text-danger" *ngIf="errorMsg != null">{{
+                  errorMsg
+                }}</span>
+              </form>
+            </div>
+            <!--/card-block-->
+          </div>
+          <!-- /form card login -->
+        </div>
+      </div>
+      <!--/row-->
+    </div>
+    <!--/col-->
+  </div>
+  <!--/row-->

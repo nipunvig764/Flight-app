@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row">        
+            <div class="card">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select name="source" id="source" [(ngModel)]="source">
+                                    <option value="" disabled selected>Select your source</option>
+                                    <option *ngFor="let source of sources" [value]="source">
+                                        {{source | uppercase}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="destination" id="destination" [(ngModel)]="destination">
+                                    <option value="" selected disabled>Select your destination</option>
+                                    <option *ngFor="let destination of destinations" [value]="destination">
+                                        {{destination | uppercase}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="date" name="date" id="date" [(ngModel)]="date" min="{{todayDate}}">
+                            </td>
+                            <td><button class="btn btn-dark" (click)="searchFlights()"><span class="material-symbols-outlined">
+                                search
+                                </span></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        
+    </div>
+    
+</div>
+<br><br>
+<div *ngIf="flag==0">
+    <table class="table table-bordered table-striped table-light table-hover">
+        <thead>
+            <tr>
+                <th>Airline</th>
+                <th>Departure time</th>
+                <th>Arrival time</th>
+                <th>Seats</th>
+                <th>Fare(in Rs)</th>
+                <th>Book</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let flight of flights">
+                <td>{{flight.airlines}}</td>
+                <td>{{flight.departureTime}}</td>
+                <td>{{flight.arrivalTime}}</td>
+                <td>{{flight.seatCount}}</td>
+                <td>{{flight.fare}}</td>
+                <td><a (click)="bookFlight(flight)"><span class="material-symbols-outlined">
+                    arrow_forward
+                    </span></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- <div *ngIf="flag==1">
+    <span class="text-warn" style="font-size: 20px;text-align: center;">Sorry, no flights are available..</span>
+</div> -->

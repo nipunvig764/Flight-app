@@ -1,0 +1,426 @@
+<div class="container">
+    <button
+      style="color: white"
+      type="button"
+      class="block"
+      (click)="flightDetailsCollapsed = !flightDetailsCollapsed"
+      [attr.aria-expanded]="!flightDetailsCollapsed"
+      aria-controls="collapseExample"
+    >
+      Booking Details
+    </button>
+    <div *ngIf="flightDetailsCollapsed" id="collapseExample">
+      <div class="card">
+  
+        <div class="card-body">
+          <table>
+            <tr>
+              <th>FLightId</th>
+              <th>Origin</th>
+              <th>Destination</th>
+              <th>Fare</th>
+              <th>Airline</th>
+              <th>DepartureTime</th>
+              <th>JourneyDate</th>
+            </tr>
+  
+            <tr>
+              <td>{{ flight.flightId }}</td>
+              <td>{{ flight.source | uppercase }}</td>
+              <td>{{ flight.destination | uppercase}}</td>
+              <td>{{ flight.fare }}</td>
+              <td>{{ flight.airlines }}</td>
+              <td>{{ flight.departureTime }}</td>
+              <td>{{ flight.flightAvailableDate }}</td>
+            </tr>
+  
+            <tr></tr>
+  
+          </table>
+        </div>
+      </div>
+    </div>
+    <button
+      style="color: white"
+      type="button"
+      class="block"
+      (click)="passengerDetailsCollapsed = !passengerDetailsCollapsed"
+      [attr.aria-expanded]="!passengerDetailsCollapsed"
+      aria-controls="collapseExample"
+    >
+      Passenger Details
+    </button>
+    <div *ngIf="passengerDetailsCollapsed" id="collapseExample">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="addPassengerForm" class="row row-cols-lg-auto g-3 offset-md-3">
+            <div class="col">
+              <label class="visually-hidden" for="inline-form-passengerName"
+                >Passenger Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="passengerName"
+                formControlName="passengerName"
+                placeholder="Passenger Name"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  addPassengerForm.controls['passengerName'].errors &&
+                  addPassengerForm.controls['passengerName'].touched
+                "
+              >
+                Enter Valid Passenger Name.</span
+              >
+            </div>
+  
+            <div class="col">
+              <label class="visually-hidden" for="inline-form-gender"
+                >Gender</label
+              >
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                placeholder="passengerGender"
+                id="passengerGender"
+                formControlName="passengerGender"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+  
+            <div class="col">
+              <label class="visually-hidden" for="inline-form-age">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="passengerAge"
+                name="passengerAge"
+                id="passengerAge"
+                formControlName="passengerAge"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  addPassengerForm.controls['passengerAge'].errors &&
+                  addPassengerForm.controls['passengerAge'].touched
+                "
+                >Age should be greater than 0</span
+              >
+            </div>
+  
+            <div class="col">
+              <button
+                [disabled]="addPassengerForm.invalid"
+                (click)="addPassenger()"
+                type="submit"
+                class="btn btn-dark"
+                style="margin-left: 150px;"
+              >
+              <i class="material-icons" style="font-size:15px;">add</i>
+              </button>
+              <span class="text-danger"  *ngIf="seatsFull">{{
+                errorMessage
+              }}</span>
+            </div>
+          </form>
+  
+          <!-- <div class="row">
+                      <div class="col-lg-3 offset-md-5">
+                          <button [disabled]="isPassengerListEmpty"
+                              (click)="paymentDetailsCollapsed = true;passengerDetailsCollapsed=false;flightDetailsCollapsed=false"
+                              type="submit" class="btn btn-primary" style="margin-top: 20px; text-align: center;">Proceed
+                              in Payment Section</button>
+                      </div>
+                  </div> -->
+  
+                  <br>
+                   <br>
+                  
+                  <div class="container">
+                      <div class="row">
+                          <div class="offset-md-2">
+                              <table *ngIf="!isPassengerListEmpty">
+                                  <thead>
+                                      <tr>
+                                          <th>Name</th>
+                                          <th>Gender</th>
+                                          <th>Age</th>
+                                          <th>Remove Passenger</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let passenger of passengersList;let number = index">
+                                          <td>{{ passenger.passengerName }}</td>
+                                          <td> {{ passenger.passengerGender }}</td>
+                                          <td> {{ passenger.passengerAge }}</td>
+                                          <td><button
+                                              (click)="removePassenger(number)"
+                                              class="btn btn-light">
+                                            <i class="material-icons" style="font-size:15px;">delete</i>
+                                            </button>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                                 
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                 
+        </div>
+      </div>
+    </div>
+  
+    <button
+      style="color: white"
+      type="button"
+      class="block"
+      (click)="
+        passengerListEmptyOrNot();
+        paymentDetailsCollapsed = !paymentDetailsCollapsed
+      "
+      [attr.aria-expanded]="!paymentDetailsCollapsed"
+      aria-controls="collapseExample"
+    >
+      Payment Details
+    </button>
+  
+    <div
+      *ngIf="paymentDetailsCollapsed && !isPassengerListEmpty"
+      id="collapseExample"
+    >
+      <div class="card">
+        <div class="card-body" style="height: 100vh">
+          <form [formGroup]="paymentForm">
+            <div class="form-group" style="margin-top: 10px">
+              <div class="row">
+                <div class="col-lg-2 offset-md-2">
+                  <label for="name" placeholder="Enter Card Number"
+                    >Card Number:</label
+                  >
+                </div>
+                <div class="col-lg-6">
+                  <input
+                    type="text"
+                    name="cardNumber"
+                    id="cardNumber"
+                    class="form-control"
+                    formControlName="cardNumber"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      paymentForm.controls['cardNumber'].errors &&
+                      paymentForm.controls['cardNumber'].touched
+                    "
+                  >
+                    Card Number should be of 16 digits.</span
+                  >
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group" style="margin-top: 10px">
+              <div class="row">
+                <div class="col-lg-2 offset-md-2">
+                  <label for="name" placeholder="Enter Card Holder Name"
+                    >Card Holder Name</label
+                  >
+                </div>
+                <div class="col-lg-6">
+                  <input
+                    type="text"
+                    name="cardHolderName"
+                    id="cardHolderName"
+                    class="form-control"
+                    formControlName="cardHolderName"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      paymentForm.controls['cardHolderName'].errors &&
+                      paymentForm.controls['cardHolderName'].touched
+                    "
+                  >
+                    Card Holder Name is required.</span
+                  >
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group" style="margin-top: 10px">
+              <div class="row">
+                <div class="col-lg-2 offset-md-2">
+                  <label for="name" placeholder="Enter CVV number">CVV</label>
+                </div>
+                <div class="col-lg-6">
+                  <input
+                    type="text"
+                    name="cvv"
+                    id="cvv"
+                    class="form-control"
+                    formControlName="cvv"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      paymentForm.controls['cvv'].errors &&
+                      paymentForm.controls['cvv'].touched
+                    "
+                  >
+                    Cvv should be of 3 digits.</span
+                  >
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group" style="margin-top: 10px">
+              <div class="row">
+                <div class="col-lg-2 offset-md-2">
+                  <label for="name" placeholder="Card Number"
+                    >3D Secure Pin:</label
+                  >
+                </div>
+                <div class="col-lg-6">
+                  <input
+                    type="text"
+                    name="apin"
+                    id="apin"
+                    class="form-control"
+                    formControlName="apin"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      paymentForm.controls['apin'].errors &&
+                      paymentForm.controls['apin'].touched
+                    "
+                  >
+                    3D secure pin should be of 4 digits.</span
+                  >
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group" style="margin-top: 10px">
+              <div class="row">
+                <div class="col-lg-2 offset-md-2">
+                  <label for="name" placeholder="Select card expiry date"
+                    >Card Expiration:</label
+                  >
+                </div>
+                <div class="col-lg-3">
+                  <select
+                    name="expiryMonth"
+                    id="expiryMonth"
+                    formControlName="expiryMonth"
+                  >
+                    <option value="Jan">Jan</option>
+                    <option value="Feb">Feb</option>
+                    <option value="Mar">Mar</option>
+                    <option value="Apr">Apr</option>
+                    <option value="May">May</option>
+                    <option value="Jun">Jun</option>
+                    <option value="Jul">Jul</option>
+                    <option value="Aug">Aug</option>
+                    <option value="Sep">Sep</option>
+                    <option value="Oct">Oct</option>
+                    <option value="Nov">Nov</option>
+                    <option value="Dec">Dec</option>
+                  </select>
+                  <select
+                    name="expiryYear"
+                    id="expiryYear"
+                    formControlName="expiryYear"
+                  >
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+  
+  
+  
+            <div class="row">
+              <div class="col-lg-3 offset-md-5">
+                <button
+                  [disabled]="paymentForm.invalid"
+                  (click)="openModal()"
+                  type="submit"
+                  class="btn btn-primary"
+                  style="margin-top: 20px; text-align: center;font-size: 20px;"
+                >
+  
+                <span class="material-symbols-outlined">
+                  arrow_forward
+                  </span>
+                </button>
+  
+                <div class="container">
+                    <div clas="row">
+                      <span style="text-align: center;font-size: 18px;"class="text-danger">
+                          {{errorMessage}}
+                      </span>
+                    </div>
+                </div>
+  
+  
+                <div
+                  class="modal"
+                  tabindex="-1"
+                  role="dialog"
+                  [ngStyle]="{ display: display }"
+                >
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" style="text-align: center">
+                          Total Fare:{{ fare }}
+                        </h4>
+                        <button
+                          type="button"
+                          class="close"
+                          aria-label="Close"
+                          (click)="onCloseHandled()"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Do you want to continue payment?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-default"
+                          (click)="makePayment()"
+                        >
+                          Make Payment
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                          (click)="onCloseHandled()"
+                        >
+                          Close
+                        </button>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

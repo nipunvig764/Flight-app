@@ -1,0 +1,75 @@
+<div class="row" style="margin-top: -30px">
+    <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+      <div class="row">
+        <div class="col-lg-4 col-md-8 mx-auto">
+          <!-- form card login -->
+          <div class="card rounded shadow shadow-sm">
+            <div class="card-header">
+              <h3 class="mb-0">Login</h3>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="loginForm">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      loginForm.controls['email'].errors &&
+                      loginForm.controls['email'].touched
+                    "
+                    >Enter Valid Email Id</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="text"
+                    name=""
+                    id="password"
+                    class="form-control"
+                    formControlName="password"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      loginForm.controls['password'].errors &&
+                      loginForm.controls['password'].touched
+                    "
+                    >Field Required</span
+                  >
+                </div>
+                <br />
+                <button
+                  [disabled]="!loginForm.valid"
+                  (click)="login()"
+                >
+                <span class="material-symbols-outlined">
+                  login
+                  </span>
+                  </button
+                ><br />
+                <span class="text-success" *ngIf="successMsg != null">{{
+                  successMsg
+                }}</span>
+                <span class="text-danger" *ngIf="errorMsg != null">{{
+                  errorMsg
+                }}</span>
+              </form>
+            </div>
+            <!--/card-block-->
+          </div>
+          <!-- /form card login -->
+        </div>
+      </div>
+      <!--/row-->
+    </div>
+    <!--/col-->
+  </div>
+  <!--/row-->

@@ -1,0 +1,84 @@
+<div class="container" style="margin-top: 30px; max-width: 60%">
+    <div class="card text-center fs-5">
+      <div class="card-header fs-4">Ticket Details</div>
+      <div class="card-body" style="margin-bottom: 30px">
+        Congratulations ! Your Ticket Has been Confirmed.<br />
+        Your PNR is {{ ticketPnr }}
+      </div>
+    </div>
+  </div>
+  <div
+    class="container"
+    style="margin-top: 30px; max-width: 60%; margin-bottom: 40px"
+  >
+    <div class="card">
+      <div class="card-header fs-4">Feedback Form</div>
+      <div class="card-body">
+        <form>
+          <p>For What reasons do you fly?</p>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="" id="business" />
+            <label class="form-check-label" for="business">Business</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="" id="personal" />
+            <label class="form-check-label" for="personal"
+              >Personal Reasons</label
+            >
+          </div>
+          <br />
+          <p>How will you book your plane tickets?</p>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="" id="airline" />
+            <label class="form-check-label" for="airline"
+              >Directly through an airline</label
+            >
+          </div>
+          <div class="form-check mb-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name=""
+              id="discountSite"
+            />
+            <label class="form-check-label" for="discountSite"
+              >Through an online travel discount site</label
+            >
+          </div>
+          <br />
+          <p>How frequently will you fly through our airline?</p>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="" id="always" />
+            <label class="form-check-label" for="always">Always</label>
+          </div>
+          <div class="form-check mb-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name=""
+              id="onceInAWhile"
+            />
+            <label class="form-check-label" for="onceInAWhile"
+              >Once in a while</label
+            >
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="" id="never" />
+            <label class="form-check-label" for="never">Never</label>
+          </div>
+          <br />
+          <p>Do you feel that InfyGo airlines is your most favourite?</p>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="" id="yes" />
+            <label class="form-check-label" for="yes">Yes</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="" id="no" />
+            <label class="form-check-label" for="no">No</label>
+          </div>
+        </form>
+        <br />
+        <button class="btn btn-primary" (click)="changeRoute()">Submit</button>
+      </div>
+    </div>
+  </div>

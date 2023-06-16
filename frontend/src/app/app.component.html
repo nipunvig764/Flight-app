@@ -1,0 +1,17 @@
+<!-- <div *ngIf="!loginService.isLoggedIn()">
+  <span><a [routerLink]='["/register"]' routerLinkActive="active">Register</a></span>
+  <span><a [routerLink]='["/login"]'>Login</a></span>
+</div>
+<div *ngIf="loginService.isLoggedIn()">
+  <span><a (click)="logout()" routerLinkActive="active" style="color:white">Logout</a></span>
+</div> -->
+
+<app-navbar></app-navbar>
+
+<div class="bgImage">
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+    <!-- <app-login></app-login> -->
+    <!-- <app-register></app-register> -->
+  </div>
+</div>

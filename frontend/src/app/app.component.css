@@ -1,0 +1,17 @@
+.allign{
+
+    text-align:center;
+    color:rgb(121, 16, 16)
+}
+
+.bgImage {
+    background-image: url('../assets/img1.jpg');
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    min-height: 100vh;
+    min-width: 100vw;
+    position: fixed;
+    overflow-y: auto;
+    height: 100vh;
+}
