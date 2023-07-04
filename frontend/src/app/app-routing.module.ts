@@ -6,6 +6,7 @@ import { FlightComponent } from './flight/flight.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const routes: Routes = [
   {path: "register", component: RegisterComponent},
@@ -13,7 +14,9 @@ const routes: Routes = [
   {path: "flights", component: FlightComponent},
   {path: 'booking/:flightId', component: BookingFormComponent,canActivate:[ControlsGuard]},
   {path : "ticketDetails", component: TicketDetailsComponent,canActivate:[ControlsGuard]},
-  {path:"", component: LoginComponent}
+  {path: "navbar", component: NavbarComponent},
+  //{path:"", component: LoginComponent},
+  { path: '', redirectTo: '/navbar', pathMatch: 'full' }
   
 ];
 
